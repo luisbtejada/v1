@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysqlLB
+  namespace: default
+  annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+spec:
+  ports:
+  - name: http
+    protocol: TCP
+    port: 3306
+    targetPort: http
+  selector:
+    app: mysql
+  type: LoadBalancer
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
